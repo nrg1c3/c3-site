@@ -10,6 +10,7 @@
 4. **موقع ثابت (Static) يشتغل على GitHub Pages**:
    - HTML + CSS + JavaScript خفيف فقط. لا يوجد build step ولا framework ولا backend.
    - كل الروابط نسبية (relative) عشان الموقع يشتغل تحت `https://<user>.github.io/c3-site/`.
+   - **الموقع كله جوه فولدر `site/`، وده بس اللي بيتنشر** (workflow في `.github/workflows/pages.yml`). الملفات الداخلية (`BRIEF.md`, `MISSING.md`, `CLAUDE.md`, `PROPOSAL.md`, `docs/`) برّه `site/` وما تتحطش جواه أبداً.
    - لا يوجد كود سيرفر. الفورمات بتتبعت `POST` JSON لـ `FORM_ENDPOINT` (راجع BRIEF.md §6)، وجنب كل فورم زرار واتساب كاختيار تاني.
 5. **مصدر المحتوى هو `BRIEF.md`**: اللي فيه مؤكد ومسموح يتنشر، إلا اللي جنبه [محتاج تأكيد] أو في قسم «ممنوع».
 6. **ممنوع اختراع أي بيانات**: لا أرقام (عدد ملاعب، عملاء، سنين خبرة، أسعار، إحصائيات)، ولا أسماء عملاء، ولا شهادات/آراء، ولا عناوين، ولا صور stock توحي إنها مشاريعنا.
@@ -38,8 +39,8 @@
 ## الهيكل
 
 ```
-/                  ← النسخة العربية (الافتراضية، lang="ar" dir="rtl")
-  index.html
+site/                  ← الموقع المنشور (ده بس اللي بيترفع على GitHub Pages)
+  index.html           ← النسخة العربية (الافتراضية، lang="ar" dir="rtl")
   basata.html          ← فروع بساطة + الاستثمار (#invest)
   fit-out.html         ← تشطيب وتجهيز الفروع التجارية
   court-building.html  ← إنشاء ملاعب البادل
@@ -47,11 +48,16 @@
   contact.html
   privacy.html         ← الخصوصية (لينكها في الفوتر وجنب موافقة كل فورم)
   sw.js                ← service worker (الصفحات تفتح من غير نت)
-/en/               ← النسخة الإنجليزية (lang="en" dir="ltr") بنفس أسماء الملفات
-/assets/css/       ← style.css واحد، بيستخدم CSS logical properties (margin-inline-start…) عشان RTL/LTR
-/assets/js/        ← config.js (الروابط والأرقام) + main.js (المنيو + الفورمات)
-/assets/img/       ← الصور (WebP/JPG مضغوطة)
+  en/                  ← النسخة الإنجليزية (lang="en" dir="ltr") بنفس أسماء الملفات
+  assets/css/          ← style.css واحد، بيستخدم CSS logical properties (margin-inline-start…) عشان RTL/LTR
+  assets/js/           ← config.js (الروابط والأرقام) + main.js (المنيو + الفورمات)
+  assets/img/          ← الصور (WebP مضغوطة بمقاسين 640 و1280)
+.github/workflows/pages.yml  ← بينشر site/ بس
+BRIEF.md · MISSING.md · PROPOSAL.md · docs/   ← داخلي، مش بيتنشر على الموقع
 ```
+
+**النشر:** مرة واحدة من GitHub: Settings ← Pages ← Source = **GitHub Actions**. بعد كده أي push على `main` فيه تغيير في `site/` بينشر لوحده.
+**تجربة محلية:** `cd site && python3 -m http.server 8765`.
 
 - كل صفحة فيها زرار تبديل اللغة بيودّي لنفس الصفحة في اللغة التانية.
 - زرار واتساب ثابت (floating) في كل الصفحات.
