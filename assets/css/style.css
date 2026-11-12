@@ -325,3 +325,8 @@ html[dir="rtl"] .field input[type="tel"] { text-align: right; }
 .has-book-bar .wa-float { bottom: 12px; }
 @media (min-width: 900px) { .book-bar { display: none; } }
 .btn-stack { display: grid; gap: 10px; }
+
+/* ---------- صور حقيقية ---------- */
+.photo { margin: 0; }
+.photo img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); background: var(--c-soft-2); }
+.photo figcaption { font-size: .92rem; color: var(--c-muted); margin-top: 8px; }
