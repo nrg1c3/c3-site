@@ -25,6 +25,13 @@
     a.rel = "noopener";
   });
 
+  // لينك إنستجرام من config.js
+  document.querySelectorAll("[data-instagram]").forEach(function (a) {
+    if (cfg.INSTAGRAM_URL) a.href = cfg.INSTAGRAM_URL;
+    a.target = "_blank";
+    a.rel = "noopener";
+  });
+
   document.querySelectorAll("[data-wa-display]").forEach(function (el) {
     el.textContent = cfg.WHATSAPP_DISPLAY;
   });
