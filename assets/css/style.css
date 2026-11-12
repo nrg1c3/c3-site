@@ -324,3 +324,4 @@ html[dir="rtl"] .field input[type="tel"] { text-align: right; }
 }
 .has-book-bar .wa-float { bottom: 12px; }
 @media (min-width: 900px) { .book-bar { display: none; } }
+.btn-stack { display: grid; gap: 10px; }
