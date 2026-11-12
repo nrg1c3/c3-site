@@ -38,8 +38,8 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
-    <a class="lang-switch" href="../court-building.html" hreflang="ar" lang="ar">العربية</a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a class="lang-switch" href="../court-building.html" hreflang="ar" lang="ar"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>العربية</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></button>
   </div>
 </header>
 
@@ -51,7 +51,7 @@
     <h1>Padel court building</h1>
     <p class="lead">Have land and want to start a padel business? C3 builds your court, turnkey.</p>
     <div class="hero-actions">
-      <a class="btn btn-padel" href="#quote">Request a quote</a>
+      <a class="btn btn-padel" href="#quote"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>Request a quote</a>
     </div>
   </div>
 </section>
@@ -66,7 +66,7 @@
         <li>Lighting</li>
         <li>Real court-operating experience — we run our own courts</li>
       </ul>
-      <a class="btn btn-outline" href="padel.html">See our courts</a>
+      <a class="btn btn-outline" href="padel.html"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M12 5v14M3 12h18"/></svg>See our courts</a>
     </div>
     <div class="img-placeholder img-placeholder--wide" data-todo="Photo of our courts" role="img" aria-label="Missing image: Photo of our courts">[Missing image: Photo of our courts]</div>
   </div>
@@ -110,14 +110,17 @@
         <label for="court-building-courts">Number of courts</label>
         <input id="court-building-courts" name="courts" type="number" min="1" inputmode="numeric" data-label="Number of courts">
       </div>
-      <div class="field">
-        <label for="court-building-cover">Open-air or covered?</label>
-        <select id="court-building-cover" name="cover" data-label="Open-air or covered?"><option value="">Choose</option><option>Open-air</option><option>Covered</option><option>Not sure</option></select>
-      </div>
+      <fieldset class="field full choices" data-label="Open-air or covered?">
+        <legend>Open-air or covered?</legend>
+        <div class="choice-row"><label class="choice"><input type="radio" name="cover" value="Open-air"><span>Open-air</span></label><label class="choice"><input type="radio" name="cover" value="Covered"><span>Covered</span></label><label class="choice"><input type="radio" name="cover" value="Not sure"><span>Not sure</span></label></div>
+      </fieldset>
       <div class="hp-field" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="field full consent">
+        <label><input type="checkbox" name="consent" required> <span>I agree that the C3 team may contact me about this request. <a href="privacy.html">Privacy</a></span> <span class="req" aria-hidden="true">*</span></label>
+      </div>
       <div class="full form-actions">
-        <button class="btn btn-primary" type="submit">Send request</button>
-        <a class="btn btn-wa" data-form-wa href="https://wa.me/201500709489" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.21 4.24-9.46 9.47-9.46a9.4 9.4 0 0 1 6.69 2.78 9.4 9.4 0 0 1 2.77 6.69c0 5.22-4.24 9.46-9.45 9.46zm8.05-17.52A11.32 11.32 0 0 0 12.04.65C5.77.65.66 5.75.66 12.03c0 2 .52 3.96 1.52 5.69L.57 23.35l5.77-1.51a11.36 11.36 0 0 0 5.7 1.45h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.34-8.05z"/></svg>Or send via WhatsApp</a>
+        <button class="btn btn-primary" type="submit"><svg class="icon icon-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send request</button>
+        <a class="btn btn-wa" data-form-wa href="https://wa.me/201500709489" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.21 4.24-9.46 9.47-9.46a9.4 9.4 0 0 1 6.69 2.78 9.4 9.4 0 0 1 2.77 6.69c0 5.22-4.24 9.46-9.45 9.46zm8.05-17.52A11.32 11.32 0 0 0 12.04.65C5.77.65.66 5.75.66 12.03c0 2 .52 3.96 1.52 5.69L.57 23.35l5.77-1.51a11.36 11.36 0 0 0 5.7 1.45h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.34-8.05z"/></svg>Or send on WhatsApp</a>
       </div>
       <div class="full">
         <div class="form-status" role="status" aria-live="polite"></div>
@@ -145,21 +148,21 @@
         <li><a href="court-building.html">Padel Court Building</a></li>
         <li><a href="padel.html">Our Courts</a></li>
         <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
         </ul>
       </div>
       <div>
         <h3>Contact</h3>
         <ul>
-          <li><a data-wa href="https://wa.me/201500709489">WhatsApp &amp; calls:&nbsp;<span class="ltr" data-wa-display>01500709489</span></a></li>
+          <li><a data-wa href="https://wa.me/201500709489">WhatsApp &amp; calls:&nbsp;<bdi dir="ltr" data-wa-display>01500709489</bdi></a></li>
           <li>Facebook: C3 Franchise <span class="todo" data-todo="facebook-link">[Missing: link]</span></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">© <span data-year>2026</span> C3 Integrated Solutions. All rights reserved.</div>
   </div>
+  <a class="wa-float" data-wa href="https://wa.me/201500709489" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.21 4.24-9.46 9.47-9.46a9.4 9.4 0 0 1 6.69 2.78 9.4 9.4 0 0 1 2.77 6.69c0 5.22-4.24 9.46-9.45 9.46zm8.05-17.52A11.32 11.32 0 0 0 12.04.65C5.77.65.66 5.75.66 12.03c0 2 .52 3.96 1.52 5.69L.57 23.35l5.77-1.51a11.36 11.36 0 0 0 5.7 1.45h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.34-8.05z"/></svg></a>
 </footer>
-
-<a class="wa-float" data-wa href="https://wa.me/201500709489" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.21 4.24-9.46 9.47-9.46a9.4 9.4 0 0 1 6.69 2.78 9.4 9.4 0 0 1 2.77 6.69c0 5.22-4.24 9.46-9.45 9.46zm8.05-17.52A11.32 11.32 0 0 0 12.04.65C5.77.65.66 5.75.66 12.03c0 2 .52 3.96 1.52 5.69L.57 23.35l5.77-1.51a11.36 11.36 0 0 0 5.7 1.45h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.34-8.05z"/></svg></a>
 
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/main.js"></script>
