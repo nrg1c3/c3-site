@@ -1,7 +1,8 @@
 (function () {
   "use strict";
   var cfg = window.C3_CONFIG || {};
-  var isAr = (document.documentElement.lang || "ar").indexOf("ar") === 0;
+  var lang = (document.documentElement.lang || "ar").indexOf("ar") === 0 ? "ar" : "en";
+  var isAr = lang === "ar";
 
   function waLink(text) {
     var url = "https://wa.me/" + cfg.WHATSAPP_NUMBER;
@@ -23,12 +24,9 @@
     a.rel = "noopener";
   });
 
-  // رقم واتساب المعروض
   document.querySelectorAll("[data-wa-display]").forEach(function (el) {
     el.textContent = cfg.WHATSAPP_DISPLAY;
   });
-
-  // السنة في الفوتر
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
@@ -50,23 +48,105 @@
     });
   }
 
-  // فورم طلب عرض السعر → رسالة واتساب جاهزة
-  var form = document.getElementById("quote-form");
-  if (form) {
+  // ---------- الفورمات ----------
+  // <form data-lead-form data-type="..." data-title="...">
+  //   الحقول اللي عليها data-label بتتجمع في message كسطور.
+  //   name و phone بيتبعتوا كحقول منفصلة. website = حقل مخفي ضد السبام.
+  var MSG = {
+    ar: {
+      sending: "جاري الإرسال…",
+      ok: "تم استلام طلبك ✅ هنتواصل معاك قريب على رقمك.",
+      fail: "حصلت مشكلة في الإرسال. ابعت طلبك على واتساب بدلها:",
+      busy: "اتبعت طلبات كتير من الجهاز ده. جرّب كمان شوية أو ابعت على واتساب:",
+      wa: "ابعت على واتساب"
+    },
+    en: {
+      sending: "Sending…",
+      ok: "Request received ✅ We'll contact you soon.",
+      fail: "Something went wrong. Please send your request on WhatsApp instead:",
+      busy: "Too many requests from this device. Try again later or use WhatsApp:",
+      wa: "Send on WhatsApp"
+    }
+  }[lang];
+
+  function collect(form) {
+    var data = { name: "", phone: "", lines: [] };
+    form.querySelectorAll("[data-label]").forEach(function (field) {
+      var value = field.value.trim();
+      if (field.tagName === "SELECT") value = field.selectedIndex > 0 ? field.options[field.selectedIndex].text : "";
+      if (field.name === "name") data.name = value;
+      else if (field.name === "phone") data.phone = value;
+      else if (value) data.lines.push(field.getAttribute("data-label") + ": " + value);
+    });
+    return data;
+  }
+
+  function waText(form, d) {
+    var lines = [form.getAttribute("data-title") || ""];
+    if (d.name) lines.push((isAr ? "الاسم: " : "Name: ") + d.name);
+    if (d.phone) lines.push((isAr ? "الموبايل: " : "Mobile: ") + d.phone);
+    return lines.concat(d.lines).join("\n");
+  }
+
+  document.querySelectorAll("form[data-lead-form]").forEach(function (form) {
+    var status = form.querySelector(".form-status");
+    var button = form.querySelector("button[type=submit]");
+    var waAlt = form.querySelector("[data-form-wa]");
+
+    function show(kind, text, withWa) {
+      status.className = "form-status is-" + kind;
+      status.textContent = text;
+      if (withWa) {
+        var a = document.createElement("a");
+        a.className = "btn btn-wa";
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.href = waLink(waText(form, collect(form)));
+        a.textContent = MSG.wa;
+        status.appendChild(document.createElement("br"));
+        status.appendChild(a);
+      }
+    }
+
+    // زرار واتساب البديل جنب الإرسال: بيتحدّث بالبيانات وقت الضغط
+    if (waAlt) {
+      waAlt.addEventListener("click", function () {
+        waAlt.href = waLink(waText(form, collect(form)));
+      });
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (!form.reportValidity()) return;
-      var lines = [isAr ? "طلب عرض سعر — إنشاء/تشطيب ملعب بادل" : "Quote request — padel court construction/finishing", ""];
-      form.querySelectorAll("[data-label]").forEach(function (field) {
-        var value = field.value.trim();
-        if (field.tagName === "SELECT" && field.selectedIndex > 0) {
-          value = field.options[field.selectedIndex].text;
-        } else if (field.tagName === "SELECT") {
-          value = "";
-        }
-        if (value) lines.push(field.getAttribute("data-label") + ": " + value);
-      });
-      window.open(waLink(lines.join("\n")), "_blank", "noopener");
+      var d = collect(form);
+      var payload = {
+        site: cfg.FORM_SITE,
+        name: d.name,
+        phone: d.phone,
+        type: (form.querySelector("select[name=type]") || {}).value || form.getAttribute("data-type"),
+        message: d.lines.join("\n"),
+        page: location.pathname,
+        lang: lang,
+        website: (form.querySelector("[name=website]") || {}).value || ""
+      };
+      button.disabled = true;
+      show("info", MSG.sending);
+      fetch(cfg.FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res && res.ok) {
+            show("ok", MSG.ok);
+            form.reset();
+          } else {
+            show("error", res && res.error === "too_many" ? MSG.busy : MSG.fail, true);
+          }
+        })
+        .catch(function () { show("error", MSG.fail, true); })
+        .then(function () { button.disabled = false; });
     });
-  }
+  });
 })();
