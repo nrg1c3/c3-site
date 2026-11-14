@@ -1,6 +1,7 @@
 # ينشر فولدر site/ بس على GitHub Pages.
 # الملفات الداخلية (BRIEF.md, MISSING.md, CLAUDE.md, PROPOSAL.md, docs/) ما بتتنشرش على الموقع.
-# مرة واحدة: Settings ← Pages ← Source = GitHub Actions
+# مرة واحدة، قبل أول merge على main: Settings ← Pages ← Source = GitHub Actions
+# (لو اتعمل merge قبلها، شغّل الـ workflow يدوي من تبويب Actions ← Run workflow)
 name: Deploy site to GitHub Pages
 
 on:
@@ -16,7 +17,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:

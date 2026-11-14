@@ -60,7 +60,8 @@ docs/A11Y-CHECKLIST.md       ← قواعد سهولة الاستخدام
 
 **صفحات الـ HTML بتتولّد** من `c3-internal/tools/gen.py`: عدّل هناك وشغّل `python3 tools/gen.py ../c3-site/site`. أي تعديل يدوي في HTML هيتمسح مع أول توليد. CSS وJS والصور بتتعدّل هنا مباشرة.
 
-**النشر:** مرة واحدة من GitHub: Settings ← Pages ← Source = **GitHub Actions**. بعد كده أي push على `main` فيه تغيير في `site/` بينشر لوحده.
+**النشر:** مرة واحدة من GitHub، **قبل أول merge على `main`**: Settings ← Pages ← Source = **GitHub Actions**. بعد كده أي push على `main` فيه تغيير في `site/` بينشر لوحده. لو اتعمل merge قبل التفعيل: Actions ← Deploy site to GitHub Pages ← Run workflow.
+**عنوان الموقع:** `BASE_URL` في `c3-internal/tools/gen.py` (بيتحط في canonical و hreflang و og:url). غيّره لما يبقى فيه دومين.
 **تجربة محلية:** `cd site && python3 -m http.server 8765`.
 
 - كل صفحة فيها زرار تبديل اللغة بيودّي لنفس الصفحة في اللغة التانية.

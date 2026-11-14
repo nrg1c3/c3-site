@@ -1,7 +1,8 @@
 /* Service worker — عشان الصفحات تفتح وتتقرا لو النت ضعيف أو مقطوع.
-   الصفحات: الشبكة الأول، ولو فشلت من الكاش. الملفات الثابتة: من الكاش وبتتحدّث في الخلفية.
+   ملفات الموقع (الصفحات و CSS و JS والصور): الشبكة الأول، ولو فشلت من الكاش،
+   عشان أي تحديث يوصل كامل من أول زيارة. الخطوط: من الكاش الأول (مش بتتغيّر).
    غيّر VERSION لو عايز تمسح الكاش القديم كله. */
-var VERSION = "c3-v3";
+var VERSION = "c3-v4";
 var PAGES = ["index", "basata", "fit-out", "court-building", "padel", "contact", "privacy"];
 var PRECACHE = ["./", "assets/css/style.css", "assets/js/config.js", "assets/js/main.js"]
   .concat(PAGES.map(function (p) { return p + ".html"; }))
@@ -17,6 +18,15 @@ self.addEventListener("activate", function (e) {
   }).then(function () { return self.clients.claim(); }));
 });
 
+function store(req, res) {
+  // بنخزّن الردود السليمة بس، عشان صفحة 404 أو 500 ما تمسحش النسخة الكويسة
+  if (res && (res.ok || res.type === "opaque")) {
+    var copy = res.clone();
+    caches.open(VERSION).then(function (c) { c.put(req, copy); });
+  }
+  return res;
+}
+
 self.addEventListener("fetch", function (e) {
   var req = e.request;
   if (req.method !== "GET") return;
@@ -24,25 +34,18 @@ self.addEventListener("fetch", function (e) {
   var isFont = url.hostname === "fonts.googleapis.com" || url.hostname === "fonts.gstatic.com";
   if (url.origin !== self.location.origin && !isFont) return; // واتساب، البوت، السيرفر: من غير كاش
 
-  if (req.mode === "navigate") {
-    e.respondWith(fetch(req).then(function (res) {
-      var copy = res.clone();
-      caches.open(VERSION).then(function (c) { c.put(req, copy); });
-      return res;
-    }).catch(function () {
-      return caches.match(req).then(function (hit) { return hit || caches.match("index.html"); });
+  if (isFont) {
+    e.respondWith(caches.match(req).then(function (hit) {
+      return hit || fetch(req).then(function (res) { return store(req, res); });
     }));
     return;
   }
 
-  // الملفات الثابتة: من الكاش فوراً، وبتتحدّث في الخلفية (stale-while-revalidate)
-  e.respondWith(caches.open(VERSION).then(function (c) {
-    return c.match(req).then(function (hit) {
-      var update = fetch(req).then(function (res) {
-        if (res.ok || res.type === "opaque") c.put(req, res.clone());
-        return res;
-      }).catch(function () { return hit; });
-      return hit || update;
+  e.respondWith(fetch(req).then(function (res) { return store(req, res); }).catch(function () {
+    return caches.match(req).then(function (hit) {
+      if (hit || req.mode !== "navigate") return hit;
+      // صفحة مش متخزّنة والنت مقطوع: الرئيسية بنفس اللغة
+      return caches.match(url.pathname.indexOf("/en/") !== -1 ? "en/index.html" : "index.html");
     });
   }));
 });
