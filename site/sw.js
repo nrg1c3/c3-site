@@ -2,9 +2,9 @@
    ملفات الموقع (الصفحات و CSS و JS والصور): الشبكة الأول، ولو فشلت من الكاش،
    عشان أي تحديث يوصل كامل من أول زيارة. الخطوط: من الكاش الأول (مش بتتغيّر).
    غيّر VERSION لو عايز تمسح الكاش القديم كله. */
-var VERSION = "c3-v5";
+var VERSION = "c3-v6";
 var PAGES = ["index", "basata", "fit-out", "court-building", "padel", "contact", "privacy"];
-var PRECACHE = ["./", "assets/css/style.css", "assets/js/config.js", "assets/js/main.js", "assets/img/c3-logo.webp"]
+var PRECACHE = ["./", "assets/css/style.css", "assets/js/config.js", "assets/js/main.js", "assets/img/c3-logo.svg"]
   .concat(PAGES.map(function (p) { return p + ".html"; }))
   .concat(PAGES.map(function (p) { return "en/" + p + ".html"; }));
 
