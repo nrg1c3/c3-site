@@ -25,6 +25,13 @@
     a.rel = "noopener";
   });
 
+  // لينك فيسبوك من config.js
+  document.querySelectorAll("[data-facebook]").forEach(function (a) {
+    if (cfg.FACEBOOK_URL) a.href = cfg.FACEBOOK_URL;
+    a.target = "_blank";
+    a.rel = "noopener";
+  });
+
   // لينك إنستجرام من config.js
   document.querySelectorAll("[data-instagram]").forEach(function (a) {
     if (cfg.INSTAGRAM_URL) a.href = cfg.INSTAGRAM_URL;
