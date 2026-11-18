@@ -8,6 +8,9 @@ window.C3_CONFIG = {
   // بوت الحجز (n8n) — كل أزرار "احجز" بتفتحه. لو اتشال، الأزرار بترجع تفتح واتساب.
   BOOKING_URL: "https://api.nrg-egypt.com/webhook/5014eaed-9472-4f9d-9381-3d44c8b681c2/chat",
 
+  // صفحة فيسبوك C3 Franchise
+  FACEBOOK_URL: "https://www.facebook.com/C3Franchise/",
+
   // إنستجرام ملاعب البادل (The Grand Padel)
   INSTAGRAM_URL: "https://www.instagram.com/grandpadeleg/",
 
